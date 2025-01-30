@@ -68,8 +68,8 @@ export default function ClientDashboard() {
         console.log(error);
       }
     }
-    getPackagesData();
-  }, []);
+    if (borrower) getPackagesData();
+  }, [borrower]);
 
   useEffect(() => {
     async function getMyScore() {
@@ -80,8 +80,8 @@ export default function ClientDashboard() {
         console.log(error);
       }
     }
-    getMyScore();
-  }, []);
+   if (borrower) getMyScore();
+  }, [borrower]);
 
   useEffect(() => {
     async function CountMyLoans() {
@@ -92,8 +92,8 @@ export default function ClientDashboard() {
         console.log(error);
       }
     }
-    CountMyLoans();
-  }, []);
+  if (borrower)  CountMyLoans();
+  }, [borrower]);
 
   useEffect(() => {
     async function GetBalance() {
@@ -104,8 +104,8 @@ export default function ClientDashboard() {
         console.log(error);
       }
     }
-    GetBalance();
-  }, []);
+   if (borrower) GetBalance();
+  }, [borrower]);
 
   const handlePackageClick = (pkg) => {
     setSelectedPackage(pkg);

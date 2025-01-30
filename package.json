@@ -1,7 +1,6 @@
 {
   "name": "loan",
   "homepage": "https://loansysystem.netlify.app",
-  "proxy": "https://loan-server-jdbs.onrender.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -61,5 +61,12 @@
   force = true
   headers = {Access-Control-Allow-Origin = "*"}
 
+  [[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://loansysystem.netlify.app"
+    Access-Control-Allow-Credentials = "true"
+
+
 
 

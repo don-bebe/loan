@@ -109,7 +109,10 @@ export default function Calculator() {
                 }}
                 value={interest}
                 onChange={(e) => {
-                  setInterest(e.target.value);
+                  let value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > 100) value = 100;
+                  setInterest(value);
                 }}
                 required
               />
@@ -147,7 +150,10 @@ export default function Calculator() {
                 }}
                 value={origination}
                 onChange={(e) => {
-                  setOrigination(e.target.value);
+                  let value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > 100) value = 100;
+                  setOrigination(value);
                 }}
               />
               <Box

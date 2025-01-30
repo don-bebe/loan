@@ -68,8 +68,8 @@ export default function ClientDashboard() {
         console.log(error);
       }
     }
-    if (borrower) getPackagesData();
-  }, [borrower]);
+    getPackagesData();
+  }, []);
 
   useEffect(() => {
     async function getMyScore() {
@@ -144,21 +144,21 @@ export default function ClientDashboard() {
               <NoteCard
                 title="My Credit Score"
                 icon={<CreditScore fontSize="large" color="primary" />}
-                details={myScore || 0}
+                details={myScore ? myScore : 0}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
               <NoteCard
                 title="Total Loans"
                 icon={<LocalAtm fontSize="large" color="primary" />}
-                details={loanCount || 0}
+                details={loanCount ? loanCount : 0}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
               <NoteCard
                 title="Balance"
                 icon={<AttachMoney fontSize="large" color="primary" />}
-                details={parseFloat(balance).toFixed(2) || 0}
+                details={balance ? parseFloat(balance).toFixed(2) : 0}
               />
             </Grid>
           </Grid>

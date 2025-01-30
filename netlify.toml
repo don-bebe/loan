@@ -47,6 +47,13 @@
   force = true
   headers = {Access-Control-Allow-Origin = "*"}
 
+  [[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://loan-server-jdbs.onrender.com"
+    Access-Control-Allow-Credentials = "true"
+
+
 [[redirects]]
   from = "/package/*"
   to = "https://loan-server-jdbs.onrender.com/package/:splat"

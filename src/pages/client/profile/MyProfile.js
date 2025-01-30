@@ -48,18 +48,21 @@ export default function MyProfile() {
                 label="Fullname"
                 value={record.firstName + " " + record.lastName}
                 inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
               />
               <Controls.Input
                 name="dateOfBirth"
                 label="Date of birth"
                 value={record.dateOfBirth}
                 inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
               />
               <Controls.Input
                 name="gender"
                 label="Gender"
                 value={record.gender}
                 inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
               />
             </>
           ) : (
@@ -69,18 +72,21 @@ export default function MyProfile() {
                 label="Fullname"
                 value={record.businessName}
                 inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
               />
               <Controls.Input
                 name="companyTel"
                 label="Company phone"
                 value={record.companyPhone}
                 inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
               />
               <Controls.Input
                 name="contactPerson"
                 label="Contact person"
                 value={record.contactPerson}
                 inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
               />
             </>
           )}
@@ -94,12 +100,14 @@ export default function MyProfile() {
                 : record.registrationNumber
             }
             inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
           />
           <Controls.Input
             name="emailAddress"
             label="EmailAddress"
             value={record.emailAddress}
             inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
           />
         </Grid>
         <Grid size={{ xs: 6, md: 6 }}>
@@ -109,6 +117,7 @@ export default function MyProfile() {
             label="Phone number"
             value={record.phoneNumber}
             inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
           />
           <Controls.Input
             name="addressLine1"
@@ -117,12 +126,14 @@ export default function MyProfile() {
             multiline
             rows={4}
             inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
           />
           <Controls.Input
             name="city"
             label="City"
             value={record.address?.city}
             inputProps={{ readOnly: true }}
+InputLabelProps={{ shrink: true }}
           />
           <div
             style={{

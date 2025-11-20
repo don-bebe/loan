@@ -31,7 +31,7 @@ export default function WeeklyLineChart() {
   async function GetTotalLoanedAmountData() {
     try {
       const response = await WeeklyLoanedAverage();
-      setLoanedData(response.data);
+      setLoanedData(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +40,7 @@ export default function WeeklyLineChart() {
   async function GetTotalPaidAmountData() {
     try {
       const response = await WeeklyPaidAverage();
-      setPaidData(response.data);
+      setPaidData(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }
@@ -51,28 +51,39 @@ export default function WeeklyLineChart() {
     GetTotalPaidAmountData();
   }, []);
 
-  const mergedData = loanedData?.map((loan) => {
-    const paid = paidData?.find((payment) => payment.week === loan.week);
+  // Get unique weeks from both datasets
+  const allWeeks = Array.from(
+    new Set([...loanedData.map((d) => d.week), ...paidData.map((d) => d.week)])
+  ).sort();
+
+  // Merge data, ensuring all weeks are included
+  const mergedData = allWeeks.map((week) => {
+    const loan = loanedData.find((l) => l.week === week) || {};
+    const paid = paidData.find((p) => p.week === week) || {};
     return {
-      week: loan.week,
-      averageLoanedAmount: loan.averageLoanedAmount,
-      averageAmountPaid: paid ? paid.averageAmountPaid : null,
+      week,
+      averageLoanedAmount: loan.averageLoanedAmount || 0,
+      averageAmountPaid: paid.averageAmountPaid || 0,
     };
   });
 
+  const allValues = mergedData.flatMap((d) => [d.averageLoanedAmount, d.averageAmountPaid]);
+  const maxY = Math.max(...allValues) || 0;
+  const buffer = maxY * 0.1; // Add some buffer space
+
   const data = {
-    labels: mergedData?.map((x) => x.week),
+    labels: mergedData.map((x) => x.week),
     datasets: [
       {
         label: "Loaned Amount",
-        data: mergedData?.map((x) => x.averageLoanedAmount),
+        data: mergedData.map((x) => x.averageLoanedAmount),
         fill: false,
         borderColor: "rgba(54, 162, 235, 1)",
         tension: 0.1,
       },
       {
         label: "Paid Amount",
-        data: mergedData?.map((x) => x.averageAmountPaid),
+        data: mergedData.map((x) => x.averageAmountPaid),
         fill: false,
         borderColor: "rgba(34, 139, 34, 1)",
         tension: 0.1,
@@ -83,33 +94,31 @@ export default function WeeklyLineChart() {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    scales: {},
-    legend: {
-      labels: {
-        fontSize: 15,
-      },
-    },
     plugins: {
       annotation: {
         annotations: {
           line1: {
             type: "line",
-            yMin: 20000,
-            yMax: 20000,
+            yMin: maxY - buffer, // Adjusted dynamically
+            yMax: maxY - buffer,
             borderColor: "rgb(255, 99, 132)",
             borderWidth: 2,
           },
         },
       },
     },
+    scales: {
+      y: {
+        min: 0, // Ensure it starts from zero
+        max: maxY + buffer,
+      },
+    },
   };
+
   return (
     <div>
       <Title>Weekly Loaned vs Paid Amount</Title>
-      <div
-        className="chart-container"
-        style={{ position: "relative", height: "40vh" }}
-      >
+      <div className="chart-container" style={{ position: "relative", height: "40vh" }}>
         <Line data={data} options={options} />
       </div>
     </div>

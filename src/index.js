@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./utils/store";
+import {PersistGate} from "redux-persist/integration/react";
+import { store, persistor } from "./utils/store";
 import "./index.css";
 import Layout from "./layout/Layout";
 import ClientDashboard from "./pages/client/ClientDashboard";
@@ -104,7 +105,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

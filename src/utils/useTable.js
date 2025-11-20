@@ -22,6 +22,7 @@ const StyledTable = styled(Table)(({ theme }) => ({
   "& tbody td": {
     fontWeight: 100,
     color: theme.palette.text.primary,
+    wordBreak: "break-word", // Ensures text wraps within the cell
   },
   "& tbody tr:hover": {
     backgroundColor: theme.palette.action.hover,
@@ -31,14 +32,17 @@ const StyledTable = styled(Table)(({ theme }) => ({
 
 export default function useTable(records, headCells, filterFn) {
   const theme = useTheme();
-  const pages = [5, 10, 25];
+  const pages = [10, 20, 30];
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
   const [order, setOrder] = useState();
   const [orderBy, setOrderBy] = useState();
 
   const TblContainer = (props) => (
-    <TableContainer component={Paper} style={{ overflowX: "auto" }}>
+    <TableContainer
+      component={Paper}
+      style={{ maxWidth: "100%", overflowX: "hidden" }}
+    >
       <StyledTable size="small">{props.children}</StyledTable>
     </TableContainer>
   );

@@ -101,7 +101,7 @@ export default function LoanApplication() {
   async function fetchMyLoanData() {
     try {
       const response = await AllMyLoanApplications();
-      setRecords(response.data);
+      setRecords(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }

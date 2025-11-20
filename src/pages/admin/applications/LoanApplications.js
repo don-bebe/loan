@@ -81,7 +81,7 @@ export default function LoanApplications() {
   async function fetchAllApplications() {
     try {
       const response = await AllLoanApplications();
-      setRecords(response.data);
+      setRecords(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }

@@ -34,7 +34,7 @@ const fileIcons = {
   gif: <Image color="action" />,
 };
 
-const url = "http://localhost:5050";
+const url = "https://loan-server-jdbs.onrender.com";
 
 export default function ViewApplication({ item, updateStatus }) {
   const [documents, setDocuments] = useState([]);
@@ -45,7 +45,7 @@ export default function ViewApplication({ item, updateStatus }) {
     async function fetchDocuments() {
       try {
         const response = await AllDocumentsByClient(item.client_uuid);
-        setDocuments(response.data);
+        setDocuments(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.log(error);
       }

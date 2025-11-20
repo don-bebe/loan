@@ -63,7 +63,7 @@ export default function ClientDashboard() {
     async function getPackagesData() {
       try {
         const response = await AllLoanPackagesActive();
-        setPackages(response.data);
+        setPackages(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.log(error);
       }
@@ -71,41 +71,26 @@ export default function ClientDashboard() {
     getPackagesData();
   }, []);
 
-  useEffect(() => {
-    async function getMyScore() {
-      try {
-        const score = await MyCreditScore();
-        setMyScore(score);
-      } catch (error) {
+  useEffect(()=>{
+    const fetchData = async()=>{
+      try{
+        const [lnc, my, bal,] = await Promise.all([
+          MyCreditScore(),
+          MyLoanCount(),
+          PaymentBalance()
+        ]);
+        setMyScore(lnc);
+        setLoanCount(my);
+        setBalance(bal);
+        
+      }catch(error){
         console.log(error);
       }
     }
-    getMyScore();
-  }, []);
 
-  useEffect(() => {
-    async function CountMyLoans() {
-      try {
-        const count = await MyLoanCount();
-        setLoanCount(count);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    CountMyLoans();
-  }, []);
+    if(borrower) fetchData();
+  },[borrower])
 
-  useEffect(() => {
-    async function GetBalance() {
-      try {
-        const response = await PaymentBalance();
-        setBalance(response);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    GetBalance();
-  }, []);
 
   const handlePackageClick = (pkg) => {
     setSelectedPackage(pkg);

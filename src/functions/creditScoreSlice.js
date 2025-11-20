@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5050/score";
+const baseUrl = "https://loan-server-jdbs.onrender.com/score";
 
 export async function MyCreditScore() {
   try {

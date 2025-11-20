@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardIcon from "@mui/icons-material/Dashboard";
+import HomeIcon from "@mui/icons-material/Home";
 import { Outlet } from "react-router-dom";
 import { AppProvider } from "@toolpad/core/react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -14,7 +14,7 @@ import MoneyIcon from "@mui/icons-material/Money";
 import ConfirmDialog from "./utils/ConfirmDialog";
 
 const NAVIGATION = [
-  { segment: "admin/dashboard", title: "Home", icon: <DashboardIcon /> },
+  { segment: "admin/dashboard", title: "Home", icon: <HomeIcon /> },
   {
     segment: "admin/dashboard/clients",
     title: "Clients",

@@ -86,7 +86,7 @@ export default function ClientList() {
   async function LoadIndividualData() {
     try {
       const response = await AllIndividualClients();
-      setRecords(response.data);
+      setRecords(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }

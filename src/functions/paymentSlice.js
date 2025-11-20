@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const baseUrl = "http://localhost:5050/pay";
+const baseUrl = "https://loan-server-jdbs.onrender.com/pay";
 
 const initialState = {
   pay: null,

@@ -74,7 +74,7 @@ export default function LoanPackages() {
   async function LoanPackageData() {
     try {
       const response = await AllLoanPackages();
-      setRecords(response.data);
+      setRecords(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }

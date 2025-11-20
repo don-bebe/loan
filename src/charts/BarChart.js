@@ -18,7 +18,7 @@ export default function BarChart() {
     async function fetchMostAppliedLoan() {
       try {
         const response = await AllLoanAppClients();
-        setChart(response.data);
+        setChart(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Error fetching loan application data:", error);
       }

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const baseUrl = "http://localhost:5050/apply";
+const baseUrl = "https://loan-server-jdbs.onrender.com/apply";
 
 const initialState = {
   apply: null,

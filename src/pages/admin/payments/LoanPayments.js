@@ -88,7 +88,7 @@ export default function LoanPayments() {
   async function fetchPayments() {
     try {
       const response = await GetAllPayments();
-      setRecords(response.data);
+      setRecords(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }

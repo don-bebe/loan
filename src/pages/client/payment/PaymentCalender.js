@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MyPaymentCalender } from "../../../functions/loanApplySlice";
 import dayjs from "dayjs";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Tooltip } from "@mui/material";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -36,14 +36,9 @@ export default function PaymentCalender() {
             ? "green"
             : payment.installmentNumber === paymentCalendar.length
             ? "blue"
-            : "orange";
+            : "orange"; // default color for middle installments
 
-        const label =
-          payment.installmentNumber === 1
-            ? "First Installment"
-            : payment.installmentNumber === paymentCalendar.length
-            ? "Final Installment"
-            : `Installment ${payment.installmentNumber}`;
+        const label = `Installment ${payment.installmentNumber}`;
 
         return {
           date: dayjs(payment.dueDate, "YYYY-MM-DD"), // Parse date properly
@@ -56,7 +51,7 @@ export default function PaymentCalender() {
     }
   }, [paymentCalendar]);
 
-  // Render each day
+  // Render each day with labels and color
   const renderDay = (day, selectedDate, pickersDayProps) => {
     const highlight = highlightedDates.find((h) => h.date.isSame(day, "day"));
 
@@ -65,33 +60,28 @@ export default function PaymentCalender() {
         {...pickersDayProps}
         sx={{
           position: "relative",
-          backgroundColor: highlight ? highlight.color : "inherit",
-          color: highlight ? "white" : "inherit",
+          backgroundColor: highlight ? highlight.color : "transparent",
           borderRadius: "50%",
-          "&:hover": {
-            backgroundColor: highlight ? highlight.color : "lightgray",
-          },
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          height: "40px",
-          width: "40px",
+          color: highlight ? "white" : "inherit",
+          boxShadow: highlight ? "0px 0px 4px rgba(0,0,0,0.2)" : "none",
         }}
       >
-        <Typography variant="body2">{day.date()}</Typography>
         {highlight && (
-          <Typography
-            variant="caption"
-            sx={{
-              position: "absolute",
-              bottom: "-10px",
-              fontSize: "0.6rem",
-              color: "black",
-            }}
-          >
-            {highlight.label}
-          </Typography>
+          <Tooltip title={highlight.label} arrow>
+            <Typography
+              variant="caption"
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                fontWeight: "bold",
+                fontSize: "0.75rem",
+              }}
+            >
+              {highlight.label}
+            </Typography>
+          </Tooltip>
         )}
       </Box>
     );
@@ -99,14 +89,13 @@ export default function PaymentCalender() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box sx={{ padding: 2 }}>
-        <StaticDatePicker
-          displayStaticWrapperAs="desktop"
-          value={selectedDate}
-          onChange={(newValue) => setSelectedDate(newValue)}
-          renderDay={renderDay}
-        />
-      </Box>
+      <StaticDatePicker
+        displayStaticWrapperAs="desktop"
+        value={selectedDate}
+        onChange={(newDate) => setSelectedDate(newDate)}
+        renderDay={renderDay}
+        shouldDisableDate={(date) => !highlightedDates.some((h) => h.date.isSame(date, "day"))}
+      />
     </LocalizationProvider>
   );
 }

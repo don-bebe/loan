@@ -86,7 +86,7 @@ export default function BusinessClientList() {
   async function LoadBusinessData() {
     try {
       const response = await AllBusinessClients();
-      setRecords(response.data);
+      setRecords(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }

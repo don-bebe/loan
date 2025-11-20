@@ -46,7 +46,7 @@ const headCells = [
   { id: "documentFile", label: "File" },
 ];
 
-const url = "http://localhost:5050";
+const url = "https://loan-server-jdbs.onrender.com";
 
 export default function MyDocuments() {
   const { docs, isError, isSuccess, message } = useSelector(
@@ -90,7 +90,7 @@ export default function MyDocuments() {
   async function fetchMyDocument() {
     try {
       const response = await AllMyDocuments();
-      setRecords(response.data);
+      setRecords(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error);
     }

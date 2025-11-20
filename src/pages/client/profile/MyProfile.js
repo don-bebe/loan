@@ -18,8 +18,7 @@ export default function MyProfile() {
       async function ViewMyProfile() {
         try {
           const response = await MyProfileDetails();
-          console.log(response.data);
-          setRecord(response.data);
+          setRecord(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
           console.log(error);
         }

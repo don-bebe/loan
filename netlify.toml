@@ -1,0 +1,74 @@
+[[redirects]]
+  from = "/auth/*"
+  to = "https://loan-server-jdbs.onrender.com/auth/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+[[redirects]]
+  from = "/authentic/*"
+  to = "https://loan-server-jdbs.onrender.com/authentic/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+[[redirects]]
+  from = "/apply/*"
+  to = "https://loan-server-jdbs.onrender.com/apply/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+[[redirects]]
+  from = "/pay/*"
+  to = "https://loan-server-jdbs.onrender.com/pay/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+[[redirects]]
+  from = "/emp/*"
+  to = "https://loan-server-jdbs.onrender.com/emp/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+[[redirects]]
+  from = "/score/*"
+  to = "https://loan-server-jdbs.onrender.com/score/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+[[redirects]]
+  from = "/doc/*"
+  to = "https://loan-server-jdbs.onrender.com/doc/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+  [[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://loan-server-jdbs.onrender.com"
+    Access-Control-Allow-Credentials = "true"
+
+
+[[redirects]]
+  from = "/package/*"
+  to = "https://loan-server-jdbs.onrender.com/package/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+[[redirects]]
+  from = "/clients/*"
+  to = "https://loan-server-jdbs.onrender.com/clients/:splat"
+  status = 200
+  force = true
+  headers = {Access-Control-Allow-Origin = "*"}
+
+
+
+
+
